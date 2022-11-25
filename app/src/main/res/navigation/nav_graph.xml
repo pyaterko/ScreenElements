@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/oneFragment">
+
+    <fragment
+        android:id="@+id/oneFragment"
+        android:name="com.owl_laugh_at_wasted_time.screenelements.OneFragment"
+        android:label="OneFragment" >
+        <action
+            android:id="@+id/action_oneFragment_to_twoFragment"
+            app:destination="@id/twoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/twoFragment"
+        android:name="com.owl_laugh_at_wasted_time.screenelements.TwoFragment"
+        android:label="fragment_two"
+        tools:layout="@layout/fragment_two" >
+        <action
+            android:id="@+id/action_twoFragment_to_treeFragment"
+            app:destination="@id/treeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/treeFragment"
+        android:name="com.owl_laugh_at_wasted_time.screenelements.TreeFragment"
+        android:label="fragment_tree"
+        tools:layout="@layout/fragment_tree" >
+        <action
+            android:id="@+id/action_treeFragment_to_fourFragment"
+            app:destination="@id/fourFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fourFragment"
+        android:name="com.owl_laugh_at_wasted_time.screenelements.FourFragment"
+        android:label="fragment_four"
+        tools:layout="@layout/fragment_four" />
+</navigation>
