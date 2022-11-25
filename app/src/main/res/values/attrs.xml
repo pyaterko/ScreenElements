@@ -122,4 +122,10 @@
         <attr name="progressBarColor" format="color" />
     </declare-styleable>
 
+    <declare-styleable name="OneElement">
+        <attr name="backgroundClick" format="color"/>
+        <attr name="backgroundUnClick" format="color"/>
+        <attr name="isClick" format="boolean"/>
+    </declare-styleable>
+
 </resources>

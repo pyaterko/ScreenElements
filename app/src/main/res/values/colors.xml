@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="pin_normal">#5F6163</color>
+    <color name="color_selected">#D4DDE6</color>
 </resources>

@@ -21,6 +21,5 @@ class OneFragment : Fragment(R.layout.fragment_one), OnClickCode {
 
 
     override fun onClickCode(item: String) {
-        findNavController().navigate(R.id.action_oneFragment_to_twoFragment)
     }
 }

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="@color/pin_normal"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp"
+        android:text="4000 р"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/color_selected"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp"
+        android:text="6000 р"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:backgroundTint="@color/color_selected"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp"
+        android:text="9000 р"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/color_selected"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp"
+        android:text="15000 р"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/color_selected"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp"
+        android:text="Свой номинал"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+    <androidx.constraintlayout.helper.widget.Flow
+        android:id="@+id/flow2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="button1,button2,button3,button4,button5"
+        app:flow_horizontalBias="0"
+        app:flow_horizontalStyle="packed"
+        app:flow_horizontalGap="8dp"
+        app:flow_verticalGap="2dp"
+        app:flow_wrapMode="chain"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</merge>

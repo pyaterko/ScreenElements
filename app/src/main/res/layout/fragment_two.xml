@@ -1,83 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".TwoFragment">
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/backgraund_selected"
-        android:text="4000 р"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="8dp"
-        android:textSize="18sp"/>
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="6000 р"
-        android:background="@drawable/backgraund_selected"
-         android:paddingHorizontal="16dp"
-        android:paddingVertical="8dp"
-        android:textSize="18sp"
-       />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:text="9000 р"
-        android:background="@drawable/backgraund_selected"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="8dp"
-        android:textSize="18sp"
-     />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="15000 р"
-        android:background="@drawable/backgraund_selected"
-         android:paddingHorizontal="16dp"
-        android:paddingVertical="8dp"
-        android:textSize="18sp"
-       />
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Свой номинал"
-        android:background="@drawable/backgraund_selected"
-         android:paddingHorizontal="16dp"
-        android:paddingVertical="8dp"
-        android:textSize="18sp"
-    />
-
-    <androidx.constraintlayout.helper.widget.Flow
-        android:id="@+id/flow2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        app:constraint_referenced_ids="textView3,textView4,textView5,textView6,textView7"
-        app:flow_horizontalBias="0"
-        app:flow_horizontalGap="12dp"
-        app:flow_horizontalStyle="packed"
-        app:flow_verticalGap="12dp"
-        app:flow_wrapMode="chain"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -100,11 +27,33 @@
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:layout_marginTop="32dp"
-     android:background="@color/purple_500"
+        android:background="@color/purple_500"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        app:layout_constraintTop_toBottomOf="@+id/one_element" />
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/purple_500"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="36dp"
+        android:text="VISA MasterCard Мир"
+        android:textColor="#A3A3A3"
+        app:layout_constraintEnd_toEndOf="@+id/radioGroup"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toTopOf="@+id/radioGroup" />
+
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -135,27 +84,7 @@
             android:text="Yandex Pay" />
     </RadioGroup>
 
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="0dp"
-        android:layout_height="2dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/purple_500"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="36dp"
-        android:text="VISA MasterCard Мир"
-        android:textColor="#A3A3A3"
-        app:layout_constraintEnd_toEndOf="@+id/radioGroup"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toTopOf="@+id/radioGroup" />
 
 
     <com.google.android.material.textfield.TextInputEditText
@@ -173,49 +102,5 @@
         app:layout_constraintStart_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="0dp"
-        android:layout_height="2dp"
-        android:layout_marginTop="36dp"
-        android:background="@color/purple_500"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/editNumberPhone" />
-
-
-    <com.owl_laugh_at_wasted_time.screenelements.PinEntryEditText
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
-
-<!--    <com.alimuzaffar.lib.pin.PinEntryEditText-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-
-<!--        android:layout_marginTop="10dp"-->
-<!--        android:cursorVisible="false"-->
-<!--        android:digits="1234567890"-->
-<!--        android:inputType="number"-->
-<!--        android:layoutDirection="ltr"-->
-<!--        android:maxLength="4"-->
-<!--        android:textIsSelectable="false"-->
-<!--        android:textSize="20sp"-->
-<!--        app:pinAnimationType="fromBottom"-->
-<!--        app:pinBackgroundDrawable="@drawable/backgraund_default"-->
-<!--        app:pinBackgroundIsSquare="true"-->
-<!--        app:pinLineStroke="0dp"-->
-<!--        app:pinLineStrokeSelected="0dp"-->
-<!--        app:pinTextBottomPadding="30dp"-->
-
-
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/guideline2"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/guideline3"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textView11" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

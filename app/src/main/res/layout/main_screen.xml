@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".FourFragment">
+    tools:context=".MainFragment">
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -22,63 +23,71 @@
         app:layout_constraintGuide_begin="24dp"
         app:layout_constraintStart_toStartOf="parent" />
 
-   <include
-       android:id="@+id/showcase1"
-       layout="@layout/fragment_showcase"
-       android:layout_width="0dp"
-       android:layout_height="wrap_content"
-       app:layout_constraintEnd_toStartOf="@+id/guideline2"
-       app:layout_constraintStart_toStartOf="@+id/guideline3"/>
-
-    <include
-        android:id="@+id/showcase2"
-        layout="@layout/fragment_showcase"
+    <Button
+        android:id="@+id/button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/showcase1" />
-
-    <include
-        android:id="@+id/showcase3"
-        layout="@layout/fragment_showcase"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_marginTop="76dp"
+        android:text="список"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/showcase2" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <include
-        android:id="@+id/showcase4"
-        layout="@layout/fragment_showcase"
+    <Button
+        android:id="@+id/button6"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="стоимость"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.549"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/showcase3" />
+        app:layout_constraintTop_toBottomOf="@+id/button" />
 
-    <include
-        android:id="@+id/showcase5"
-        layout="@layout/fragment_showcase"
+    <Button
+        android:id="@+id/button7"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="код"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/showcase4" />
+        app:layout_constraintTop_toBottomOf="@+id/button6" />
 
-    <include
-        android:id="@+id/showcase6"
-        layout="@layout/fragment_showcase"
+    <Button
+        android:id="@+id/button8"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="поле ввода"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.458"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/showcase5" />
+        app:layout_constraintTop_toBottomOf="@+id/button7" />
+
+    <Button
+        android:id="@+id/button9"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="карта"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toBottomOf="@+id/button8" />
+
+    <Button
+        android:id="@+id/button10"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="витрина"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toBottomOf="@+id/button9" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

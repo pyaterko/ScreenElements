@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TreeFragment">
+    tools:context=".CodeFragment">
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -22,34 +23,13 @@
         app:layout_constraintGuide_begin="24dp"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <include
-        android:id="@+id/include"
-        layout="@layout/fragment_card"
+
+    <com.owl_laugh_at_wasted_time.screenelements.castom.CheckSmsCode
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline3" />
-
-
-    <include
-        android:id="@+id/include2"
-        layout="@layout/fragment_card"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/include" />
-
-    <include
-        android:id="@+id/include3"
-        layout="@layout/fragment_card"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/include2" />
-
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

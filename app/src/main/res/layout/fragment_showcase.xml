@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+
+<LinearLayout
+    android:id="@+id/translate"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="12dp"
+    android:orientation="horizontal"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:cardCornerRadius="36dp"
+        android:elevation="8dp"
+        android:background="@drawable/backgraund_selected"
+        app:layout_constraintDimensionRatio="h,1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageView
+            android:id="@+id/potoImigeView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@android:drawable/presence_away" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/textViewName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center"
+        android:layout_marginStart="16dp"
+        android:layout_weight="1"
+        android:text="Перевести по номеру"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="4dp"
+        android:layout_gravity="center"
+        android:padding="6dp"
+        app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
+</LinearLayout>
+
+<View
+    android:id="@+id/view"
+    android:layout_width="0dp"
+    android:layout_height="2dp"
+    android:background="#F1F1F1"
+    android:layout_marginVertical="12dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/translate"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,37 +3,59 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/oneFragment">
-
+    app:startDestination="@id/mainFragment">
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.owl_laugh_at_wasted_time.screenelements.MainFragment"
+        android:label="main_screen"
+        tools:layout="@layout/main_screen" >
+        <action
+            android:id="@+id/action_mainFragment_to_codeFragment"
+            app:destination="@id/codeFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_oneFragment"
+            app:destination="@id/oneFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_fourFragment"
+            app:destination="@id/fourFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_treeFragment"
+            app:destination="@id/treeFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_twoFragment"
+            app:destination="@id/twoFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_priseFragment"
+            app:destination="@id/priseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/codeFragment"
+        android:name="com.owl_laugh_at_wasted_time.screenelements.CodeFragment"
+        android:label="fragment_check_code"
+        tools:layout="@layout/fragment_check_code" />
     <fragment
         android:id="@+id/oneFragment"
         android:name="com.owl_laugh_at_wasted_time.screenelements.OneFragment"
-        android:label="OneFragment" >
-        <action
-            android:id="@+id/action_oneFragment_to_twoFragment"
-            app:destination="@id/twoFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/twoFragment"
-        android:name="com.owl_laugh_at_wasted_time.screenelements.TwoFragment"
-        android:label="fragment_two"
-        tools:layout="@layout/fragment_two" >
-        <action
-            android:id="@+id/action_twoFragment_to_treeFragment"
-            app:destination="@id/treeFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/treeFragment"
-        android:name="com.owl_laugh_at_wasted_time.screenelements.TreeFragment"
-        android:label="fragment_tree"
-        tools:layout="@layout/fragment_tree" >
-        <action
-            android:id="@+id/action_treeFragment_to_fourFragment"
-            app:destination="@id/fourFragment" />
-    </fragment>
+        android:label="fragment_one"
+        tools:layout="@layout/fragment_one" />
     <fragment
         android:id="@+id/fourFragment"
         android:name="com.owl_laugh_at_wasted_time.screenelements.FourFragment"
         android:label="fragment_four"
         tools:layout="@layout/fragment_four" />
+    <fragment
+        android:id="@+id/treeFragment"
+        android:name="com.owl_laugh_at_wasted_time.screenelements.TreeFragment"
+        android:label="fragment_tree"
+        tools:layout="@layout/fragment_tree" />
+    <fragment
+        android:id="@+id/twoFragment"
+        android:name="com.owl_laugh_at_wasted_time.screenelements.TwoFragment"
+        android:label="fragment_two"
+        tools:layout="@layout/fragment_two" />
+    <fragment
+        android:id="@+id/priseFragment"
+        android:name="com.owl_laugh_at_wasted_time.screenelements.PriseFragment"
+        android:label="fragment_prise"
+        tools:layout="@layout/fragment_prise" />
 </navigation>

@@ -13,7 +13,7 @@ class TwoFragment:Fragment(R.layout.fragment_two) {
         super.onViewCreated(view, savedInstanceState)
         binding= FragmentTwoBinding.bind(view)
         binding.root.setOnClickListener {
-            findNavController().navigate(R.id.action_twoFragment_to_treeFragment)
+
         }
     }
 }
