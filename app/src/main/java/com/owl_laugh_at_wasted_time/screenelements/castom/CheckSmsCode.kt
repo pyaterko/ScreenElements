@@ -84,7 +84,6 @@ class CheckSmsCode(
                 }
             })
         }
-
     }
 
     fun getCode(listener: OnCodeListener) {
