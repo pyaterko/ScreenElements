@@ -3,6 +3,8 @@ package com.owl_laugh_at_wasted_time.screenelements.castom
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.os.Parcel
+import android.os.Parcelable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.Button
@@ -88,16 +90,63 @@ class OneElement(
         typedArray.recycle()
     }
 
+    override fun onSaveInstanceState(): Parcelable? {
+        val superState = super.onSaveInstanceState()!!
+        val savedState = SavedStat(superState)
+        savedState.background0 = binding.button1.backgroundTintList!!.defaultColor
+        savedState.background1 = binding.button2.backgroundTintList!!.defaultColor
+        return savedState
+    }
+
+    override fun onRestoreInstanceState(state: Parcelable?) {
+        val savedState=state as SavedStat
+        super.onRestoreInstanceState(savedState.superState)
+        binding.button1.setBackgroundColor(savedState.background0)
+        binding.button2.setBackgroundColor(savedState.background1)
+    }
+
     fun getPrise(listener: OnPriseListener) {
         this.listener = listener
     }
-    private fun getPrise(number:Int):String{
-       return when(number){
-           0-> "4000"
-           1-> "6000"
-           2-> "9000"
-           3-> "15000"
-           else -> "Свой номинал"
-       }
+
+    private fun getPrise(number: Int): String {
+        return when (number) {
+            0 -> "4000"
+            1 -> "6000"
+            2 -> "9000"
+            3 -> "15000"
+            else -> "Свой номинал"
+        }
+    }
+
+    class SavedStat : BaseSavedState {
+        var background0 = 0
+        var background1 = 0
+
+        constructor(superState: Parcelable) : super(superState)
+        constructor(parcel: Parcel) : super(parcel) {
+            background0 = parcel.readInt()
+            background1 = parcel.readInt()
+        }
+
+        override fun writeToParcel(out: Parcel, flags: Int) {
+            super.writeToParcel(out, flags)
+            out.writeInt(background0)
+            out.writeInt(background1)
+        }
+
+        companion object {
+            @JvmField
+            val CREATOR: Parcelable.Creator<SavedStat> = object : Parcelable.Creator<SavedStat> {
+                override fun createFromParcel(p0: Parcel): SavedStat {
+                    return SavedStat(p0)
+                }
+
+                override fun newArray(p0: Int): Array<SavedStat?> {
+                    return Array(p0) { null }
+                }
+
+            }
+        }
     }
 }

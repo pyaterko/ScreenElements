@@ -4,6 +4,24 @@
     <attr name="firstText" format="string" />
     <attr name="secondText" format="string" />
 
+    <declare-styleable name="PinEntryEditText">
+        <attr format="enum" name="pinAnimationType">
+            <enum name="popIn" value="0"/>
+            <enum name="fromBottom" value="1"/>
+            <enum name="none" value="-1"/>
+        </attr>
+        <attr format="color" name="colorControlActivated"/>
+        <attr format="string" name="pinCharacterMask"/>
+        <attr format="string" name="pinRepeatedHint"/>
+        <attr format="dimension" name="pinLineStroke"/>
+        <attr format="dimension" name="pinLineStrokeSelected"/>
+        <attr format="dimension" name="pinCharacterSpacing"/>
+        <attr format="dimension" name="pinTextBottomPadding"/>
+        <attr format="color" name="pinLineColors"/>
+        <attr format="reference" name="pinBackgroundDrawable"/>
+        <attr format="boolean" name="pinBackgroundIsSquare"/>
+    </declare-styleable>
+
     <declare-styleable name="SmsCodeEditText">
         <attr name="smsCodeAnimationType" format="enum">
             <enum name="popIn" value="0" />

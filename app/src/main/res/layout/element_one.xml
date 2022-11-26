@@ -14,6 +14,7 @@
         android:backgroundTint="@color/pin_normal"
         android:paddingHorizontal="16dp"
         android:paddingVertical="8dp"
+        android:freezesText="true"
         android:text="4000 р"
         android:textColor="@color/white"
         android:textSize="18sp" />
@@ -26,6 +27,7 @@
         android:paddingHorizontal="16dp"
         android:paddingVertical="8dp"
         android:text="6000 р"
+        android:freezesText="true"
         android:textColor="@color/black"
         android:textSize="18sp" />
 
@@ -38,6 +40,7 @@
         android:paddingHorizontal="16dp"
         android:paddingVertical="8dp"
         android:text="9000 р"
+        android:freezesText="true"
         android:textColor="@color/black"
         android:textSize="18sp" />
 
@@ -50,6 +53,7 @@
         android:paddingHorizontal="16dp"
         android:paddingVertical="8dp"
         android:text="15000 р"
+        android:freezesText="true"
         android:textColor="@color/black"
         android:textSize="18sp" />
 
@@ -61,6 +65,7 @@
         android:paddingHorizontal="16dp"
         android:paddingVertical="8dp"
         android:text="Свой номинал"
+        android:freezesText="true"
         android:textColor="@color/black"
         android:textSize="18sp" />
 

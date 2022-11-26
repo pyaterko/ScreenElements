@@ -23,13 +23,16 @@ class CheckSmsCode(
     private val sb = StringBuilder()
     private var listener: OnCodeListener? = null
     private var showCode=true
+   private val array = arrayListOf<TextInputEditText>()
 
     constructor(context: Context, attrs: AttributeSet?, defStuleAttr: Int) : this(
         context,
         attrs,
         defStuleAttr,
         0
-    )
+    ){
+        initFields()
+    }
 
     constructor(
         context: Context,
@@ -44,12 +47,9 @@ class CheckSmsCode(
         val inflater = LayoutInflater.from(context)
         inflater.inflate(R.layout.check_sms_code, this, true)
         binding = CheckSmsCodeBinding.bind(this)
-        initAttrs(attrs, defStuleAttr, defStyleRes)
     }
 
-    private fun initAttrs(attrs: AttributeSet?, defStuleAttr: Int, defStyleRes: Int) {
-        if (attrs == null) return
-        val array = arrayListOf<TextInputEditText>()
+    private fun initFields() {
         with(binding) {
             array.add(editNumberPhone)
             array.add(editNumberPhone1)
