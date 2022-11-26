@@ -10,14 +10,19 @@ import com.google.android.material.textfield.TextInputEditText
 import com.owl_laugh_at_wasted_time.screenelements.R
 import com.owl_laugh_at_wasted_time.screenelements.databinding.CheckSmsCodeBinding
 
+typealias OnCodeListener = (String) -> Unit
+
 class CheckSmsCode(
     context: Context,
     attrs: AttributeSet?,
     defStuleAttr: Int,
-    defStyleRes: Int
+    defStyleRes: Int,
 ) : ConstraintLayout(context, attrs, defStuleAttr, defStyleRes) {
 
     private val binding: CheckSmsCodeBinding
+    private val sb = StringBuilder()
+    private var listener: OnCodeListener? = null
+    private var showCode=true
 
     constructor(context: Context, attrs: AttributeSet?, defStuleAttr: Int) : this(
         context,
@@ -52,15 +57,14 @@ class CheckSmsCode(
             array.add(editNumberPhone3)
         }
         for (index in 0 until array.size) {
-            array[index].setOnClickListener {
-
-                (it as TextInputEditText).clearFocus()
-                (it as TextInputEditText).setHint(context.getString(R.string.code))
-            }
             array[index].movementMethod = null
             array[index].addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(p0: Editable?) {
                     if (index == array.size - 1) {
+                        if (showCode){
+                            listener?.invoke(sb.toString())
+                            showCode=false
+                        }
                         array[index].clearFocus()
                         array[index].text?.clear()
                         array[index].setHint(context.getString(R.string.code))
@@ -69,14 +73,21 @@ class CheckSmsCode(
                         array[index].text?.clear()
                         array[index].setHint(context.getString(R.string.code))
                         array[index + 1].requestFocus()
+
                     }
                 }
+
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    sb.append(p0)
+
+                }
             })
         }
 
     }
 
-
+    fun getCode(listener: OnCodeListener) {
+        this.listener = listener
+    }
 }
