@@ -23,6 +23,8 @@ class OneElement(
 
     private val binding: ElementOneBinding
     private var listener: OnPriseListener? = null
+    var backgroundClick = 0
+    var backgroundUnClick = 0
 
     constructor(context: Context, attrs: AttributeSet?, defStuleAttr: Int) : this(
         context,
@@ -57,9 +59,9 @@ class OneElement(
         )
         val arrayButton = arrayListOf<Button>()
         with(binding) {
-            val backgroundClick =
+            backgroundClick =
                 typedArray.getColor(R.styleable.OneElement_backgroundClick, Color.GRAY)
-            val backgroundUnClick =
+            backgroundUnClick =
                 typedArray.getColor(R.styleable.OneElement_backgroundUnClick, Color.BLUE)
             val isClick = typedArray.getBoolean(R.styleable.OneElement_isClick, true)
             arrayButton.add(button1)
@@ -95,19 +97,38 @@ class OneElement(
         val savedState = SavedStat(superState)
         savedState.background0 = binding.button1.backgroundTintList!!.defaultColor
         savedState.background1 = binding.button2.backgroundTintList!!.defaultColor
+        savedState.background2 = binding.button3.backgroundTintList!!.defaultColor
+        savedState.background3 = binding.button4.backgroundTintList!!.defaultColor
+        savedState.background4 = binding.button5.backgroundTintList!!.defaultColor
+
         return savedState
     }
 
     override fun onRestoreInstanceState(state: Parcelable?) {
-        val savedState=state as SavedStat
+        val savedState = state as SavedStat
         super.onRestoreInstanceState(savedState.superState)
-        binding.button1.setBackgroundColor(savedState.background0)
-        binding.button2.setBackgroundColor(savedState.background1)
+        binding.button1.backgroundTintList = ColorStateList.valueOf(savedState.background0)
+        binding.button1.setTextColor(textColor(savedState.background0))
+        binding.button2.backgroundTintList = ColorStateList.valueOf(savedState.background1)
+        binding.button2.setTextColor(textColor(savedState.background1))
+        binding.button3.backgroundTintList = ColorStateList.valueOf(savedState.background2)
+        binding.button3.setTextColor(textColor(savedState.background2))
+        binding.button4.backgroundTintList = ColorStateList.valueOf(savedState.background3)
+        binding.button4.setTextColor(textColor(savedState.background3))
+        binding.button5.backgroundTintList = ColorStateList.valueOf(savedState.background4)
+        binding.button5.setTextColor(textColor(savedState.background4))
     }
 
     fun getPrise(listener: OnPriseListener) {
         this.listener = listener
     }
+
+    private fun textColor(background: Int) = if (background == backgroundClick) {
+        Color.WHITE
+    } else {
+        Color.BLACK
+    }
+
 
     private fun getPrise(number: Int): String {
         return when (number) {
@@ -122,17 +143,29 @@ class OneElement(
     class SavedStat : BaseSavedState {
         var background0 = 0
         var background1 = 0
+        var background2 = 0
+        var background3 = 0
+        var background4 = 0
+
 
         constructor(superState: Parcelable) : super(superState)
         constructor(parcel: Parcel) : super(parcel) {
             background0 = parcel.readInt()
             background1 = parcel.readInt()
+            background2 = parcel.readInt()
+            background3 = parcel.readInt()
+            background4 = parcel.readInt()
+
         }
 
         override fun writeToParcel(out: Parcel, flags: Int) {
             super.writeToParcel(out, flags)
             out.writeInt(background0)
             out.writeInt(background1)
+            out.writeInt(background2)
+            out.writeInt(background3)
+            out.writeInt(background4)
+
         }
 
         companion object {

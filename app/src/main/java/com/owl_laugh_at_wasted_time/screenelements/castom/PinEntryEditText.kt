@@ -30,7 +30,7 @@ class PinEntryEditText : AppCompatEditText {
     protected var mMaskChars: StringBuilder? = null
     protected var mSingleCharHint: String? = null
     protected var mAnimatedType = 0
-    protected var mSpace = 24f //24 dp by default, space between the lines
+    protected var mSpace = 12f //24 dp by default, space between the lines
     protected var mCharSize = 0f
     protected var mNumChars = 4f
     protected var mTextBottomPadding = 8f //8dp by default, height of the text from our lines

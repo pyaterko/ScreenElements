@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".CodeFragment">
 
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
@@ -39,14 +38,14 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
-
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.125"
         app:pinAnimationType="fromBottom"
         app:pinBackgroundDrawable="@drawable/backgraund_selected"
         app:pinBackgroundIsSquare="true"
         app:pinLineStroke="0dp"
+        app:pinCharacterMask="200"
         app:pinLineStrokeSelected="0dp"
-        app:pinTextBottomPadding="30dp" />
+        app:pinTextBottomPadding="25dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
