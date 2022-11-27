@@ -30,7 +30,7 @@ class PinEntryEditText : AppCompatEditText {
     private var mMaskChars: StringBuilder? = null
     private var mSingleCharHint: String? = null
     private var mAnimatedType = 0
-    private var mSpace = 12f //12 dp by default, space between the lines
+    private var mSpace = 4f //12 dp by default, space between the lines
     private var mCharSize = 0f
     private var mNumChars = 4f
     private var mTextBottomPadding = 8f //8dp by default, height of the text from our lines
@@ -67,6 +67,36 @@ class PinEntryEditText : AppCompatEditText {
     )
     private var mColorStates = ColorStateList(mStates, mColors)
 
+    private val fullText: CharSequence?
+        get() = if (TextUtils.isEmpty(mMask)) {
+            maskChars // text
+        } else {
+            maskChars
+        }
+
+    private val maskChars: StringBuilder
+        get() {
+            if (mMaskChars == null) {
+                mMaskChars = StringBuilder()
+            }
+            val textLength = text!!.length
+            while (mMaskChars!!.length != textLength) {
+                if (mMaskChars!!.length < textLength) {
+                    mMaskChars!!.append(context.getString(R.string.code))//mMask
+                } else {
+                    mMaskChars!!.deleteCharAt(mMaskChars!!.length - 1)
+                }
+            }
+            return mMaskChars!!
+        }
+
+    var isError: Boolean
+        get() = mHasError
+        set(hasError) {
+            mHasError = hasError
+            invalidate()
+        }
+
     constructor(context: Context?) : super(context!!) {}
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
         init(context, attrs)
@@ -78,150 +108,6 @@ class PinEntryEditText : AppCompatEditText {
         defStyleAttr
     ) {
         init(context, attrs)
-    }
-
-    fun setMaxLength(maxLength: Int) {
-        mMaxLength = maxLength
-        mNumChars = maxLength.toFloat()
-        filters = arrayOf<InputFilter>(LengthFilter(maxLength))
-        text = null
-        invalidate()
-    }
-
-    fun setMask(mask: String?) {
-        mMask = mask
-        mMaskChars = null
-        invalidate()
-    }
-
-    fun setSingleCharHint(hint: String?) {
-        mSingleCharHint = hint
-        invalidate()
-    }
-
-    private fun init(context: Context, attrs: AttributeSet) {
-        val multi = context.resources.displayMetrics.density
-        mLineStroke = multi * mLineStroke
-        mLineStrokeSelected = multi * mLineStrokeSelected
-        mSpace = multi * mSpace //convert to pixels for our density
-        mTextBottomPadding = multi * mTextBottomPadding //convert to pixels for our density
-        val ta = context.obtainStyledAttributes(
-            attrs,
-            R.styleable.PinEntryEditText,
-            0,
-            0
-        )
-        try {
-            val outValue = TypedValue()
-            ta.getValue(
-                R.styleable.PinEntryEditText_pinAnimationType,
-                outValue
-            )
-            mAnimatedType = outValue.data
-            mMask =
-                ta.getString(R.styleable.PinEntryEditText_pinCharacterMask)
-            mSingleCharHint =
-                ta.getString(R.styleable.PinEntryEditText_pinRepeatedHint)
-            mLineStroke = ta.getDimension(
-                R.styleable.PinEntryEditText_pinLineStroke,
-                mLineStroke
-            )
-            mLineStrokeSelected = ta.getDimension(
-                R.styleable.PinEntryEditText_pinLineStrokeSelected,
-                mLineStrokeSelected
-            )
-            mSpace = ta.getDimension(
-                R.styleable.PinEntryEditText_pinCharacterSpacing,
-                mSpace
-            )
-            mTextBottomPadding = ta.getDimension(
-                R.styleable.PinEntryEditText_pinTextBottomPadding,
-                mTextBottomPadding
-            )
-            mIsDigitSquare = ta.getBoolean(
-                R.styleable.PinEntryEditText_pinBackgroundIsSquare,
-                mIsDigitSquare
-            )
-            mPinBackground =
-                ta.getDrawable(R.styleable.PinEntryEditText_pinBackgroundDrawable)
-            val colors =
-                ta.getColorStateList(R.styleable.PinEntryEditText_pinLineColors)
-            if (colors != null) {
-                mColorStates = colors
-            }
-        } finally {
-            ta.recycle()
-        }
-        mCharPaint = Paint(paint)
-        mLastCharPaint = Paint(paint)
-        mSingleCharPaint = Paint(paint)
-        mLinesPaint = Paint(paint)
-        mLinesPaint?.strokeWidth = mLineStroke
-        val outValue = TypedValue()
-        context.theme.resolveAttribute(
-            android.R.attr.colorControlActivated,
-            outValue, true
-        )
-        val colorSelected = outValue.data
-        mColors[0] = colorSelected
-        val colorFocused = if (isInEditMode) Color.GRAY else ContextCompat.getColor(
-            context,
-            R.color.pin_normal
-        )
-        mColors[1] = colorFocused
-        val colorUnfocused = if (isInEditMode) Color.GRAY else ContextCompat.getColor(
-            context,
-            R.color.pin_normal
-        )
-        mColors[2] = colorUnfocused
-        setBackgroundResource(0)
-        mMaxLength = attrs.getAttributeIntValue(XML_NAMESPACE_ANDROID, "maxLength", 4)
-        mNumChars = mMaxLength.toFloat()
-
-        //Disable copy paste
-        super.setCustomSelectionActionModeCallback(object : ActionMode.Callback {
-            override fun onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean {
-                return false
-            }
-
-            override fun onDestroyActionMode(mode: ActionMode) {}
-            override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
-                return false
-            }
-
-            override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
-                return false
-            }
-        })
-        // When tapped, move cursor to end of text.
-        super.setOnClickListener { v ->
-            text?.let { setSelection(it.length) }
-            mClickListener?.onClick(v)
-        }
-        super.setOnLongClickListener {
-            text?.let { it1 -> setSelection(it1.length) }
-            true
-        }
-
-        //If input type is password and no mask is set, use a default mask
-        if (inputType and InputType.TYPE_TEXT_VARIATION_PASSWORD == InputType.TYPE_TEXT_VARIATION_PASSWORD && TextUtils.isEmpty(
-                mMask
-            )
-        ) {
-            mMask = DEFAULT_MASK
-        } else if (inputType and InputType.TYPE_NUMBER_VARIATION_PASSWORD == InputType.TYPE_NUMBER_VARIATION_PASSWORD && TextUtils.isEmpty(
-                mMask
-            )
-        ) {
-            mMask = DEFAULT_MASK
-        }
-        if (!TextUtils.isEmpty(mMask)) {
-            mMaskChars = maskChars
-        }
-
-        //Height of the characters, used if there is a background drawable
-        paint.getTextBounds("|", 0, 1, mTextHeight)
-        mAnimate = mAnimatedType > -1
     }
 
     override fun setInputType(type: Int) {
@@ -401,31 +287,44 @@ class PinEntryEditText : AppCompatEditText {
                 i++
             }
             //If a background for the pin characters is specified, it should be behind the characters.
-
         }
     }
 
-    private val fullText: CharSequence?
-        get() = if (TextUtils.isEmpty(mMask)) {
-            maskChars // text
-        } else {
-            maskChars
-        }
-    private val maskChars: StringBuilder
-        get() {
-            if (mMaskChars == null) {
-                mMaskChars = StringBuilder()
+    override fun setTypeface(tf: Typeface?) {
+        super.setTypeface(tf)
+        setCustomTypeface(tf)
+    }
+
+    override fun setTypeface(tf: Typeface?, style: Int) {
+        super.setTypeface(tf, style)
+        setCustomTypeface(tf)
+    }
+
+    override fun onTextChanged(
+        text: CharSequence,
+        start: Int,
+        lengthBefore: Int,
+        lengthAfter: Int
+    ) {
+        isError = false
+        if (mLineCoords == null || !mAnimate) {
+            if (mOnPinEnteredListener != null && text.length == mMaxLength) {
+                mOnPinEnteredListener!!.onPinEntered(text)
             }
-            val textLength = text!!.length
-            while (mMaskChars!!.length != textLength) {
-                if (mMaskChars!!.length < textLength) {
-                    mMaskChars!!.append(context.getString(R.string.code))//mMask
-                } else {
-                    mMaskChars!!.deleteCharAt(mMaskChars!!.length - 1)
-                }
-            }
-            return mMaskChars!!
+            return
         }
+        if (mAnimatedType == -1) {
+            invalidate()
+            return
+        }
+        if (lengthAfter > lengthBefore) {
+            if (mAnimatedType == 0) {
+                animatePopIn()
+            } else {
+                animateBottomUp(text, start)
+            }
+        }
+    }
 
     private fun getColorForState(vararg states: Int): Int {
         return mColorStates.getColorForState(states, Color.GRAY)
@@ -472,35 +371,6 @@ class PinEntryEditText : AppCompatEditText {
         }
     }
 
-    var isError: Boolean
-        get() = mHasError
-        set(hasError) {
-            mHasError = hasError
-            invalidate()
-        }
-
-    /**
-     * Request focus on this PinEntryEditText
-     */
-    fun focus() {
-        requestFocus()
-
-        // Show keyboard
-        val inputMethodManager = context
-            .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.showSoftInput(this, 0)
-    }
-
-    override fun setTypeface(tf: Typeface?) {
-        super.setTypeface(tf)
-        setCustomTypeface(tf)
-    }
-
-    override fun setTypeface(tf: Typeface?, style: Int) {
-        super.setTypeface(tf, style)
-        setCustomTypeface(tf)
-    }
-
     private fun setCustomTypeface(tf: Typeface?) {
         if (mCharPaint != null) {
             mCharPaint!!.typeface = tf
@@ -510,40 +380,129 @@ class PinEntryEditText : AppCompatEditText {
         }
     }
 
-    fun setPinLineColors(colors: ColorStateList) {
-        mColorStates = colors
-        invalidate()
-    }
-
-    fun setPinBackground(pinBackground: Drawable?) {
-        mPinBackground = pinBackground
-        invalidate()
-    }
-
-    override fun onTextChanged(
-        text: CharSequence,
-        start: Int,
-        lengthBefore: Int,
-        lengthAfter: Int
-    ) {
-        isError = false
-        if (mLineCoords == null || !mAnimate) {
-            if (mOnPinEnteredListener != null && text.length == mMaxLength) {
-                mOnPinEnteredListener!!.onPinEntered(text)
+    private fun init(context: Context, attrs: AttributeSet) {
+        val multi = context.resources.displayMetrics.density
+        mLineStroke = multi * mLineStroke
+        mLineStrokeSelected = multi * mLineStrokeSelected
+        mSpace = multi * mSpace //convert to pixels for our density
+        mTextBottomPadding = multi * mTextBottomPadding //convert to pixels for our density
+        val ta = context.obtainStyledAttributes(
+            attrs,
+            R.styleable.PinEntryEditText,
+            0,
+            0
+        )
+        try {
+            val outValue = TypedValue()
+            ta.getValue(
+                R.styleable.PinEntryEditText_pinAnimationType,
+                outValue
+            )
+            mAnimatedType = outValue.data
+            mMask =
+                ta.getString(R.styleable.PinEntryEditText_pinCharacterMask)
+            mSingleCharHint =
+                ta.getString(R.styleable.PinEntryEditText_pinRepeatedHint)
+            mLineStroke = ta.getDimension(
+                R.styleable.PinEntryEditText_pinLineStroke,
+                mLineStroke
+            )
+            mLineStrokeSelected = ta.getDimension(
+                R.styleable.PinEntryEditText_pinLineStrokeSelected,
+                mLineStrokeSelected
+            )
+            mSpace = ta.getDimension(
+                R.styleable.PinEntryEditText_pinCharacterSpacing,
+                mSpace
+            )
+            mTextBottomPadding = ta.getDimension(
+                R.styleable.PinEntryEditText_pinTextBottomPadding,
+                mTextBottomPadding
+            )
+            mIsDigitSquare = ta.getBoolean(
+                R.styleable.PinEntryEditText_pinBackgroundIsSquare,
+                mIsDigitSquare
+            )
+            mPinBackground =
+                ta.getDrawable(R.styleable.PinEntryEditText_pinBackgroundDrawable)
+            val colors =
+                ta.getColorStateList(R.styleable.PinEntryEditText_pinLineColors)
+            if (colors != null) {
+                mColorStates = colors
             }
-            return
+        } finally {
+            ta.recycle()
         }
-        if (mAnimatedType == -1) {
-            invalidate()
-            return
-        }
-        if (lengthAfter > lengthBefore) {
-            if (mAnimatedType == 0) {
-                animatePopIn()
-            } else {
-                animateBottomUp(text, start)
+        mCharPaint = Paint(paint)
+        mLastCharPaint = Paint(paint)
+        mSingleCharPaint = Paint(paint)
+        mLinesPaint = Paint(paint)
+        mLinesPaint?.strokeWidth = mLineStroke
+        val outValue = TypedValue()
+        context.theme.resolveAttribute(
+            android.R.attr.colorControlActivated,
+            outValue, true
+        )
+        val colorSelected = outValue.data
+        mColors[0] = colorSelected
+        val colorFocused = if (isInEditMode) Color.GRAY else ContextCompat.getColor(
+            context,
+            R.color.pin_normal
+        )
+        mColors[1] = colorFocused
+        val colorUnfocused = if (isInEditMode) Color.GRAY else ContextCompat.getColor(
+            context,
+            R.color.pin_normal
+        )
+        mColors[2] = colorUnfocused
+        setBackgroundResource(0)
+        mMaxLength = attrs.getAttributeIntValue(XML_NAMESPACE_ANDROID, "maxLength", 4)
+        mNumChars = mMaxLength.toFloat()
+
+        //Disable copy paste
+        super.setCustomSelectionActionModeCallback(object : ActionMode.Callback {
+            override fun onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean {
+                return false
             }
+
+            override fun onDestroyActionMode(mode: ActionMode) {}
+            override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
+                return false
+            }
+
+            override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
+                return false
+            }
+        })
+        // When tapped, move cursor to end of text.
+        super.setOnClickListener { v ->
+            text?.let { setSelection(it.length) }
+            mClickListener?.onClick(v)
         }
+        super.setOnLongClickListener {
+            text?.let { it1 -> setSelection(it1.length) }
+            true
+        }
+
+        //If input type is password and no mask is set, use a default mask
+        if (inputType and InputType.TYPE_TEXT_VARIATION_PASSWORD == InputType.TYPE_TEXT_VARIATION_PASSWORD && TextUtils.isEmpty(
+                mMask
+            )
+        ) {
+            mMask = DEFAULT_MASK
+        } else if (inputType and InputType.TYPE_NUMBER_VARIATION_PASSWORD == InputType.TYPE_NUMBER_VARIATION_PASSWORD && TextUtils.isEmpty(
+                mMask
+            )
+        ) {
+            mMask = DEFAULT_MASK
+        }
+        if (!TextUtils.isEmpty(mMask)) {
+            mMaskChars = maskChars
+        }
+
+        //Height of the characters, used if there is a background drawable
+        paint.getTextBounds("|", 0, 1, mTextHeight)
+        mAnimate = mAnimatedType > -1
     }
 
     private fun animatePopIn() {
@@ -604,12 +563,52 @@ class PinEntryEditText : AppCompatEditText {
         set.start()
     }
 
+    fun setMaxLength(maxLength: Int) {
+        mMaxLength = maxLength
+        mNumChars = maxLength.toFloat()
+        filters = arrayOf<InputFilter>(LengthFilter(maxLength))
+        text = null
+        invalidate()
+    }
+
+    fun setMask(mask: String?) {
+        mMask = mask
+        mMaskChars = null
+        invalidate()
+    }
+
+    fun setSingleCharHint(hint: String?) {
+        mSingleCharHint = hint
+        invalidate()
+    }
+
     fun setAnimateText(animate: Boolean) {
         mAnimate = animate
     }
 
     fun setOnPinEnteredListener(l: OnPinEnteredListener?) {
         mOnPinEnteredListener = l
+    }
+
+    fun setPinLineColors(colors: ColorStateList) {
+        mColorStates = colors
+        invalidate()
+    }
+
+    fun setPinBackground(pinBackground: Drawable?) {
+        mPinBackground = pinBackground
+        invalidate()
+    }
+    /**
+     * Request focus on this PinEntryEditText
+     */
+    fun focus() {
+        requestFocus()
+
+        // Show keyboard
+        val inputMethodManager = context
+            .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.showSoftInput(this, 0)
     }
 
     interface OnPinEnteredListener {

@@ -13,6 +13,8 @@ class CodeFragment:Fragment(R.layout.fragment_check_code) {
         super.onViewCreated(view, savedInstanceState)
         val binding=FragmentCheckCodeBinding.bind(view)
         binding.inEntryEdit.setSingleCharHint("-")
+        binding.inEntryEdit.setMaxLength(8)
+
         binding.inEntryEdit
 
 
