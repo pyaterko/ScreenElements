@@ -85,10 +85,7 @@ class OneElement(
                     listener?.invoke(getPrise(index))
                 }
             }
-
-
         }
-
         typedArray.recycle()
     }
 

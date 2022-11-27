@@ -26,32 +26,32 @@ import androidx.core.view.ViewCompat
 import com.owl_laugh_at_wasted_time.screenelements.R
 
 class PinEntryEditText : AppCompatEditText {
-    protected var mMask: String? = null
-    protected var mMaskChars: StringBuilder? = null
-    protected var mSingleCharHint: String? = null
-    protected var mAnimatedType = 0
-    protected var mSpace = 12f //24 dp by default, space between the lines
-    protected var mCharSize = 0f
-    protected var mNumChars = 4f
-    protected var mTextBottomPadding = 8f //8dp by default, height of the text from our lines
-    protected var mMaxLength = 4
-    protected var mLineCoords: Array<RectF?>? = null
-    protected var mCharBottom: FloatArray? = null
-    protected var mCharPaint: Paint? = null
-    protected var mLastCharPaint: Paint? = null
-    protected var mSingleCharPaint: Paint? = null
-    protected var mPinBackground: Drawable? = null
-    protected var mTextHeight = Rect()
-    protected var mIsDigitSquare = false
-    protected var mClickListener: OnClickListener? = null
-    protected var mOnPinEnteredListener: OnPinEnteredListener? = null
-    protected var mLineStroke = 1f //1dp by default
-    protected var mLineStrokeSelected = 2f //2dp by default
-    protected var mLinesPaint: Paint? = null
-    protected var mAnimate = false
-    protected var mHasError = false
-    protected var mOriginalTextColors: ColorStateList? = null
-    protected var mStates = arrayOf(
+    private var mMask: String? = null
+    private var mMaskChars: StringBuilder? = null
+    private var mSingleCharHint: String? = null
+    private var mAnimatedType = 0
+    private var mSpace = 12f //12 dp by default, space between the lines
+    private var mCharSize = 0f
+    private var mNumChars = 4f
+    private var mTextBottomPadding = 8f //8dp by default, height of the text from our lines
+    private var mMaxLength = 4
+    private var mLineCoords: Array<RectF?>? = null
+    private var mCharBottom: FloatArray? = null
+    private var mCharPaint: Paint? = null
+    private var mLastCharPaint: Paint? = null
+    private var mSingleCharPaint: Paint? = null
+    private var mPinBackground: Drawable? = null
+    private var mTextHeight = Rect()
+    private var mIsDigitSquare = false
+    private var mClickListener: OnClickListener? = null
+    private var mOnPinEnteredListener: OnPinEnteredListener? = null
+    private var mLineStroke = 1f //1dp by default
+    private var mLineStrokeSelected = 2f //2dp by default
+    private var mLinesPaint: Paint? = null
+    private var mAnimate = false
+    private var mHasError = false
+    private var mOriginalTextColors: ColorStateList? = null
+    private var mStates = arrayOf(
         intArrayOf(android.R.attr.state_selected),
         intArrayOf(android.R.attr.state_active),
         intArrayOf(
@@ -59,13 +59,13 @@ class PinEntryEditText : AppCompatEditText {
         ),
         intArrayOf(-android.R.attr.state_focused)
     )
-    protected var mColors = intArrayOf(
+    private var mColors = intArrayOf(
         Color.GREEN,
         Color.RED,
         Color.BLACK,
         Color.GRAY
     )
-    protected var mColorStates = ColorStateList(mStates, mColors)
+    private var mColorStates = ColorStateList(mStates, mColors)
 
     constructor(context: Context?) : super(context!!) {}
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
@@ -156,7 +156,7 @@ class PinEntryEditText : AppCompatEditText {
         mLastCharPaint = Paint(paint)
         mSingleCharPaint = Paint(paint)
         mLinesPaint = Paint(paint)
-        mLinesPaint!!.strokeWidth = mLineStroke
+        mLinesPaint?.strokeWidth = mLineStroke
         val outValue = TypedValue()
         context.theme.resolveAttribute(
             android.R.attr.colorControlActivated,
@@ -195,13 +195,11 @@ class PinEntryEditText : AppCompatEditText {
         })
         // When tapped, move cursor to end of text.
         super.setOnClickListener { v ->
-            setSelection(text!!.length)
-            if (mClickListener != null) {
-                mClickListener!!.onClick(v)
-            }
+            text?.let { setSelection(it.length) }
+            mClickListener?.onClick(v)
         }
         super.setOnLongClickListener {
-            setSelection(text!!.length)
+            text?.let { it1 -> setSelection(it1.length) }
             true
         }
 
@@ -244,11 +242,10 @@ class PinEntryEditText : AppCompatEditText {
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         mOriginalTextColors = textColors
-        if (mOriginalTextColors != null) {
-            mLastCharPaint!!.color = mOriginalTextColors!!.defaultColor
-            mCharPaint!!.color = mOriginalTextColors!!.defaultColor
-            mSingleCharPaint!!.color = currentHintTextColor
-        }
+        mLastCharPaint?.color = mOriginalTextColors!!.defaultColor
+        mCharPaint?.color = mOriginalTextColors!!.defaultColor
+        mSingleCharPaint?.color = currentHintTextColor
+
         val availableWidth =
             width - ViewCompat.getPaddingEnd(this) - ViewCompat.getPaddingStart(this)
         mCharSize = if (mSpace < 0) {
@@ -271,25 +268,27 @@ class PinEntryEditText : AppCompatEditText {
         }
         var i = 0
         while (i < mNumChars) {
-            mLineCoords!![i] = RectF(
-                startX.toFloat(),
-                bottom.toFloat(), startX + mCharSize, bottom.toFloat()
-            )
-            if (mPinBackground != null) {
-                if (mIsDigitSquare) {
-                    mLineCoords!![i]!!.top = paddingTop.toFloat()
-                    mLineCoords!![i]!!.right = startX + mLineCoords!![i]!!.width()
-                } else {
-                    mLineCoords!![i]!!.top -= mTextHeight.height() + mTextBottomPadding * 2
+            mLineCoords?.let { mLineCoords ->
+                mLineCoords[i] = RectF(
+                    startX.toFloat(),
+                    bottom.toFloat(), startX + mCharSize, bottom.toFloat()
+                )
+                if (mPinBackground != null) {
+                    if (mIsDigitSquare) {
+                        mLineCoords[i]!!.top = paddingTop.toFloat()
+                        mLineCoords[i]!!.right = startX + mLineCoords[i]!!.width()
+                    } else {
+                        mLineCoords[i]!!.top -= mTextHeight.height() + mTextBottomPadding * 2
+                    }
                 }
+                startX += if (mSpace < 0) {
+                    (rtlFlag * mCharSize * 2).toInt()
+                } else {
+                    (rtlFlag * (mCharSize + mSpace)).toInt()
+                }
+                mCharBottom!![i] = mLineCoords[i]!!.bottom - mTextBottomPadding
+                i++
             }
-            startX += if (mSpace < 0) {
-                (rtlFlag * mCharSize * 2).toInt()
-            } else {
-                (rtlFlag * (mCharSize + mSpace)).toInt()
-            }
-            mCharBottom!![i] = mLineCoords!![i]!!.bottom - mTextBottomPadding
-            i++
         }
     }
 
@@ -358,48 +357,51 @@ class PinEntryEditText : AppCompatEditText {
         var i = 0
         while (i < mNumChars) {
 
-            //If a background for the pin characters is specified, it should be behind the characters.
-            if (mPinBackground != null) {
-                updateDrawableState(i < textLength, i == textLength)
-                mPinBackground!!.setBounds(
-                    mLineCoords!![i]!!.left.toInt(),
-                    mLineCoords!![i]!!.top.toInt(),
-                    mLineCoords!![i]!!.right.toInt(),
-                    mLineCoords!![i]!!.bottom.toInt()
-                )
-                mPinBackground!!.draw(canvas)
-            }
-            val middle = mLineCoords!![i]!!.left + mCharSize / 2
-            if (textLength > i) {
-                if (!mAnimate || i != textLength - 1) {
-                    canvas.drawText(
-                       text, i, i + 1, middle - textWidths[i] / 2, mCharBottom!![i],
-                        mCharPaint!!
+            mLineCoords?.let { mLineCoords->
+                if (mPinBackground != null) {
+                    updateDrawableState(i < textLength, i == textLength)
+                    mPinBackground?.setBounds(
+                        mLineCoords[i]!!.left.toInt(),
+                        mLineCoords[i]!!.top.toInt(),
+                        mLineCoords[i]!!.right.toInt(),
+                        mLineCoords[i]!!.bottom.toInt()
                     )
-                } else {
+                    mPinBackground!!.draw(canvas)
+                }
+                val middle = mLineCoords[i]!!.left + mCharSize / 2
+                if (textLength > i) {
+                    if (!mAnimate || i != textLength - 1) {
+                        canvas.drawText(
+                            text, i, i + 1, middle - textWidths[i] / 2, mCharBottom!![i],
+                            mCharPaint!!
+                        )
+                    } else {
+                        canvas.drawText(
+                            text, i, i + 1, middle - textWidths[i] / 2, mCharBottom!![i],
+                            mLastCharPaint!!
+                        )
+                    }
+                } else if (mSingleCharHint != null) {
                     canvas.drawText(
-                        text, i, i + 1, middle - textWidths[i] / 2, mCharBottom!![i],
-                        mLastCharPaint!!
+                        mSingleCharHint!!, middle - hintWidth / 2, mCharBottom!![i],
+                        mSingleCharPaint!!
                     )
                 }
-            } else if (mSingleCharHint != null) {
-                canvas.drawText(
-                    mSingleCharHint!!, middle - hintWidth / 2, mCharBottom!![i],
-                    mSingleCharPaint!!
-                )
+                //The lines should be in front of the text (because that's how I want it).
+                if (mPinBackground == null) {
+                    updateColorForLines(i <= textLength)
+                    canvas.drawLine(
+                        mLineCoords[i]!!.left,
+                        mLineCoords[i]!!.top,
+                        mLineCoords[i]!!.right,
+                        mLineCoords[i]!!.bottom,
+                        mLinesPaint!!
+                    )
+                }
+                i++
             }
-            //The lines should be in front of the text (because that's how I want it).
-            if (mPinBackground == null) {
-                updateColorForLines(i <= textLength)
-                canvas.drawLine(
-                    mLineCoords!![i]!!.left,
-                    mLineCoords!![i]!!.top,
-                    mLineCoords!![i]!!.right,
-                    mLineCoords!![i]!!.bottom,
-                    mLinesPaint!!
-                )
-            }
-            i++
+            //If a background for the pin characters is specified, it should be behind the characters.
+
         }
     }
 
@@ -433,7 +435,7 @@ class PinEntryEditText : AppCompatEditText {
      * @param hasTextOrIsNext Is the color for a character that has been typed or is
      * the next character to be typed?
      */
-    protected fun updateColorForLines(hasTextOrIsNext: Boolean) {
+    private fun updateColorForLines(hasTextOrIsNext: Boolean) {
         if (mHasError) {
             mLinesPaint!!.color = getColorForState(android.R.attr.state_active)
         } else if (isFocused) {
@@ -448,7 +450,7 @@ class PinEntryEditText : AppCompatEditText {
         }
     }
 
-    protected fun updateDrawableState(hasText: Boolean, isNext: Boolean) {
+    private fun updateDrawableState(hasText: Boolean, isNext: Boolean) {
         if (mHasError) {
             mPinBackground!!.state = intArrayOf(android.R.attr.state_active)
         } else if (isFocused) {
