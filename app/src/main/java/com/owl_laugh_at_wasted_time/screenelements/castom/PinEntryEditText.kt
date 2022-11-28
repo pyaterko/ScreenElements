@@ -30,7 +30,7 @@ class PinEntryEditText : AppCompatEditText {
     private var mMaskChars: StringBuilder? = null
     private var mSingleCharHint: String? = null
     private var mAnimatedType = 0
-    private var mSpace = 4f //12 dp by default, space between the lines
+    private var mSpace = 24f //12 dp by default, space between the lines
     private var mCharSize = 0f
     private var mNumChars = 4f
     private var mTextBottomPadding = 8f //8dp by default, height of the text from our lines
@@ -69,7 +69,7 @@ class PinEntryEditText : AppCompatEditText {
 
     private val fullText: CharSequence?
         get() = if (TextUtils.isEmpty(mMask)) {
-            maskChars // text
+            text //maskChars
         } else {
             maskChars
         }
@@ -82,7 +82,7 @@ class PinEntryEditText : AppCompatEditText {
             val textLength = text!!.length
             while (mMaskChars!!.length != textLength) {
                 if (mMaskChars!!.length < textLength) {
-                    mMaskChars!!.append(context.getString(R.string.code))//mMask
+                     mMaskChars!!.append(mMask)
                 } else {
                     mMaskChars!!.deleteCharAt(mMaskChars!!.length - 1)
                 }

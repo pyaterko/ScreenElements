@@ -26,7 +26,7 @@
     <com.owl_laugh_at_wasted_time.screenelements.castom.PinEntryEditText
         android:id="@+id/inEntryEdit"
         android:layout_width="0dp"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
         android:cursorVisible="false"
         android:digits="1234567890"
         android:inputType="number"
@@ -44,8 +44,7 @@
         app:pinBackgroundDrawable="@drawable/backgraund_selected"
         app:pinBackgroundIsSquare="true"
         app:pinLineStroke="0dp"
-        app:pinCharacterMask="200"
         app:pinLineStrokeSelected="0dp"
-        app:pinTextBottomPadding="10dp" />
+        app:pinTextBottomPadding="25dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

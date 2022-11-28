@@ -12,8 +12,8 @@ class CodeFragment:Fragment(R.layout.fragment_check_code) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding=FragmentCheckCodeBinding.bind(view)
-        binding.inEntryEdit.setSingleCharHint("-")
-        binding.inEntryEdit.setMaxLength(8)
+      //  binding.inEntryEdit.setSingleCharHint("-")
+       // binding.inEntryEdit.setMaxLength(8)
 
         binding.inEntryEdit
 

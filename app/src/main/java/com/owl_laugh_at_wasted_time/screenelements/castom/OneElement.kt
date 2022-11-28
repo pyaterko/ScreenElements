@@ -76,9 +76,13 @@ class OneElement(
             button5.backgroundTintList = ColorStateList.valueOf(backgroundUnClick)
             for (index in 0 until arrayButton.size) {
                 arrayButton[index].setOnClickListener {
-                    for (but in arrayButton) {
-                        but.backgroundTintList = ColorStateList.valueOf(backgroundUnClick)
-                        but.setTextColor(Color.BLACK)
+                    for (but in 0 until index) {
+                       arrayButton[but].backgroundTintList = ColorStateList.valueOf(backgroundUnClick)
+                        arrayButton[but].setTextColor(Color.BLACK)
+                    }
+                    for (but in index until arrayButton.size) {
+                        arrayButton[but].backgroundTintList = ColorStateList.valueOf(backgroundUnClick)
+                        arrayButton[but].setTextColor(Color.BLACK)
                     }
                     it.backgroundTintList = ColorStateList.valueOf(backgroundClick)
                     (it as Button).setTextColor(Color.WHITE)
